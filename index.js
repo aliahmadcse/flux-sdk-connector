@@ -33,9 +33,16 @@ wss.on('connection', (ws) => {
 app.post('/data', (req, res) => {
   try {
     const data = req.body;
+    // console.log(data)
+    // const parsedJson = JSON.parse(data);
+    const eventIds = [];
+    data.forEach(element => {
+      eventIds.push(element["id"]);
+    });
     console.log('Received HTTP JSON data:', data);
-    res.json({ message: 'Received', data });
+    res.json({ "ids": eventIds });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: 'Invalid JSON' });
   }
 });
